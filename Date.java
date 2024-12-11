@@ -1,52 +1,28 @@
-/**
- * Date.java - Date class represents a month, day, year date
- * 
- * Class invariant:
- * Although validity is checked, it is deffined as generally valid individual
- * parts. Month: spelled correctly or 1-12. Day: 1-31. Year: 4 digits (1000-9999).
- * February 31st would be allowed, this kind of validity is defined and allowed to
- * keep the solution simple (but can definitely be upgraded later)!
- * 
- * @author Nery Chapeton-Lamas <nery@miracosta.edu>
- * @version 1.0
- */
-
 public class Date
 {
 	/********** CONSTANTS *********/
-	public static final String DEFAULT_MONTH = "December";
-	public static final int DEFAULT_DAY = 31;
-	public static final int DEFAULT_YEAR = 1959;
+	public static final String DEFAULT_MONTH = "Nocember";
+	public static final int DEFAULT_DAY = 7;
+	public static final int DEFAULT_YEAR = 1794;
 
 
 	/********** INSTANCE VARIABLES **********/	
 	private String month;
 	private int day;
-	private int year; //four digit year
+	private int year; 
 	
 	
 	/********** CONSTRUCTORS **********/
-	/**
-	 * Default constructor sets Date object to default values
-	 */
 	public Date()
 	{
 		this(DEFAULT_MONTH, DEFAULT_DAY, DEFAULT_YEAR);
 	}
 	
-	/**
-	 * Full constructor sets Date object to parameter values if valid, otherwise
-	 * outputs error message and exits program.
-	 * 
-	 * @param month String version of month, should start with capital letter but allows lowercase
-	 * @param day integer between 1 and 31, inclusive
-	 * @param year 4-digit integer
-	 */
 	public Date(String month, int day, int year)
 	{
 		boolean isValid;
 		
-		isValid = this.setAll(month, day, year); //if valid, sets data for us!
+		isValid = this.setAll(month, day, year); 
 		if( !isValid )
 		{
 			System.out.println("ERROR: bad date in full constructor!");
@@ -54,26 +30,11 @@ public class Date
 			System.exit(0);
 		}
 	}
-
-	/**
-	 * Full constructor sets Date object to parameter values if valid, otherwise
-	 * outputs error message and exits program.
-	 * 
-	 * @param month integer version of month, 1-12 inclusive
-	 * @param day integer between 1 and 31, inclusive
-	 * @param year 4-digit integer
-	 */
 	public Date(int month, int day, int year)
 	{
 		this(Date.monthToString(month), day, year);
 	}
 	
-	/**
-	 * Copy constructor creates a deep copy of original Date object, if object null
-	 * outputs error message and exits program.
-	 * 
-	 * @param original valid Date object to deep copy
-	 */
 	public Date(Date original)
 	{
 		if (original != null)
@@ -90,37 +51,20 @@ public class Date
 
 	
 	/********** SETTERS / MUTATORS **********/
-	/**
-	 * Sets month instance variable with error checking
-	 * 
-	 * @param month case-insensitive for data validation, but stores it as argument casing
-	 * 
-	 * @return true if month is valid (spelled month correctly), false otherwise.
-	 */
 	public boolean setMonth(String month)
-	{	
-		//BEST WAY (boolean method, error checking only so more flexible):
+	{
 		boolean isValid;
-		
+
 		isValid = Date.isValidMonth(month);
-		
-		if(isValid)
-		{
+
+		if (isValid) {
 			this.month = month;
 		}
-		
+
 		return isValid;
-		
 
 	}
 	
-	/**
-	 * Sets month instance variable with error checking
-	 * 
-	 * @param month integer, checked for validity
-	 * 
-	 * @return true if month is valid (1-12 inclusive), false otherwise.
-	 */
 	public boolean setMonth(int month)
 	{
 		boolean isValid;
@@ -129,19 +73,12 @@ public class Date
 		
 		if(isValid)
 		{
-			this.month = this.monthToString(month); //convert month # to string!
+			this.month = Date.monthToString(month); 
 		}
 		
 		return isValid;
 	}
 	
-	/**
-	 * Sets day instance variable with error checking
-	 * 
-	 * @param day integer, checked for validity
-	 * 
-	 * @return true if day is valid (1-31 regaqrdless of month/year), false otherwise.
-	 */
 	public boolean setDay(int day)
 	{
 		boolean isValid;
@@ -156,13 +93,6 @@ public class Date
 		return isValid;
 	}
 	
-	/**
-	 * Sets year instance variable with error checking
-	 * 
-	 * @param year integer, checked for validity
-	 * 
-	 * @return true if year is valid 4 digit year (1000-9999), false otherwise.
-	 */
 	public boolean setYear(int year)
 	{
 		boolean isValid;
@@ -177,15 +107,6 @@ public class Date
 		return isValid;
 	}
 	
-	/**
-	 * Sets all instance variable with error checking
-	 * 
-	 * @param month case-insensitive for data validation, but stores it as argument casing
-	 * @param day integer, checked for validity
-	 * @param year integer, checked for validity
-	 * 
-	 * @return true if all arguments valid, false otherwise.
-	 */
 	public boolean setAll(String month, int day, int year) {
 		boolean isValid;
 		
@@ -204,31 +125,16 @@ public class Date
 	
 
 	/********** GETTERS / ACCESSOR METHODS **********/
-	/**
-	 * Access value of month instance variable
-	 * 
-	 * @return month String value stored in case originally set in
-	 */
 	public String getMonth()
 	{
 		return this.month;
 	}
 	
-	/**
-	 * Access value of day instance variable
-	 * 
-	 * @return day value for object
-	 */
 	public int getDay()
 	{
 		return this.day;
 	}
-	
-	/**
-	 * Access value of year instance variable
-	 * 
-	 * @return year value for object
-	 */
+
 	public int getYear()
 	{
 		return this.year;
@@ -240,11 +146,7 @@ public class Date
 	@Override
 	public String toString()
 	{
-		return this.monthToInt(this.month) + "/" + this.day + "/" + this.year;
-		
-		//OTHER OPTIONS (just make sure to update documentation appropriately):
-		//return this.month + " " + this.day + ", " + this.year; //USA
-		//return  this.day + " " + this.month  + ", " + this.year; //other countries
+		return Date.monthToInt(this.month) + "/" + this.day + "/" + this.year;
 	}
 	
 	@Override
@@ -256,7 +158,7 @@ public class Date
 		{
 			return false;
 		}
-		else if(! (other instanceof Date)) //why not use getClass() introspection here?
+		else if(! (other instanceof Date))
 		{
 			return false;
 		}
@@ -268,13 +170,6 @@ public class Date
 		}
 	}
 
-	/**
-	 * Determines if calling object comes before param Date (checks month, day, year completely)
-	 * 
-	 * @param other Date object to check if it comes AFTER calling object
-	 * 
-	 * @return true if calling object precedes Date parameter, false otherwise
-	 */
 	public boolean precedes(Date other)
 	{
 		int otherMonth, thisMonth;
@@ -287,37 +182,17 @@ public class Date
 	}
 
 	/********** VALIDITY METHODS **********/
-	/**
-	 * Helper method to check String month for validity (case-insensitive)
-	 * 
-	 * @param month String month to check for validity
-	 * 
-	 * @return true for valid month (case-insensitive), false otherwise
-	 */
+
 	public static boolean isValidMonth(String month)
 	{
 		return Date.monthToInt(month) != 0;
 	}
-	
-	/**
-	 * Helper method to check day for validity (1-31 inclusive, regardless of month/year)
-	 * 
-	 * @param day day to check for validity
-	 * 
-	 * @return true for valid day, false otherwise
-	 */
+
 	public static boolean isValidDay(int day)
 	{
 		return day >= 1 && day <= 31;
 	}
 	
-	/**
-	 * Helper method to check year for validity (4 digits)
-	 * 
-	 * @param year year to check for validity (1000-9999)
-	 * 
-	 * @return true for valid year (4 digits), false otherwise
-	 */
 	public static boolean isValidYear(int year)
 	{
 		return year >= 1000 && year <= 9999;
@@ -325,13 +200,7 @@ public class Date
 	
 	
 	/********** HELPER METHODS **********/
-	/**
-	 * Helper method converts month text into a number (case-insensitive)
-	 * 
-	 * @param month String month to attempt to convert
-	 * 
-	 * @return returns 1-12 corresponding month if valid, 0 if error
-	 */
+
 	private static int monthToInt(String month)
 	{
 		int result;
@@ -386,19 +255,12 @@ public class Date
 		}
 		else
 		{
-			result = 0; //0 indicates error!
+			result = 0; 
 		}
 		
 		return result;
 	}
 	
-	/**
-	 * Helper method converts month number to text (starting with uppercase letter)
-	 * 
-	 * @param month integer month to attempt to convert
-	 * 
-	 * @return if valid, returns "January", etc., else returns null for error
-	 */
 	private static String monthToString(int month)
 	{
 		String result;
